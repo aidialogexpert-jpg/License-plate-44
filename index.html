@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لائسنس پلیٹ ریکگنیشن سسٹم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-radius: 5px 5px 0 0;
+            margin: 0 5px;
+        }
+        
+        .tab-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .upload-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            border: 2px dashed #3498db;
+            border-radius: 15px;
+            background: rgba(52, 152, 219, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-btn {
+            background: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 10px;
+        }
+        
+        .upload-btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .result-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .result-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            border: 3px solid #eee;
+        }
+        
+        .plate-result {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 5px solid #3498db;
+        }
+        
+        .status {
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        
+        .registered {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .unregistered {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .registration-form {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-section {
+            margin: 30px 0;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        
+        .search-box button {
+            padding: 12px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .vehicle-list {
+            margin-top: 20px;
+        }
+        
+        .vehicle-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+        }
+        
+        .vehicle-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: #2ecc71;
+        }
+        
+        .notification.error {
+            background: #e74c3c;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                margin-bottom: 5px;
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-car"></i> لائسنس پلیٹ ریکگنیشن سسٹم</h1>
+            <p class="subtitle">خودکار طریقے سے لائسنس پلیٹس کی پہچان اور مینجمنٹ</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="camera"><i class="fas fa-camera"></i> کیمرہ</button>
+            <button class="tab-btn" data-tab="database"><i class="fas fa-database"></i> ڈیٹا بیس</button>
+            <button class="tab-btn" data-tab="search"><i class="fas fa-search"></i> تلاش</button>
+        </div>
+        
+        <!-- کیمرہ ٹیب -->
+        <div class="tab-content active" id="camera-tab">
+            <div class="upload-section">
+                <input type="file" id="fileInput" accept="image/*">
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-upload"></i> تصویر اپ لوڈ کریں
+                </button>
+                <p id="fileName" style="margin-top: 15px; color: #7f8c8d;"></p>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <h2><i class="fas fa-search"></i> نتیجہ</h2>
+                <img id="resultImage" class="result-image">
+                <div class="plate-result">
+                    <p style="font-size: 1.3rem; margin-bottom: 15px;">لائسنس پلیٹ: <strong id="plateNumber" style="color: #2c3e50;"></strong></p>
+                    <p>حالت: <span id="plateStatus" class="status"></span></p>
+                </div>
+                
+                <div class="registration-form" id="registrationForm">
+                    <h3><i class="fas fa-user-plus"></i> نئی گاڑی رجسٹر کریں</h3>
+                    <div class="form-group">
+                        <label for="ownerName">مالک کا نام</label>
+                        <input type="text" id="ownerName" placeholder="مالک کا پورا نام">
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">فون نمبر</label>
+                        <input type="text" id="phoneNumber" placeholder="فون نمبر">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleAddress">پتہ</label>
+                        <input type="text" id="vehicleAddress" placeholder="مکمل پتہ">
+                    </div>
+                    <button class="btn btn-success" onclick="registerVehicle()"><i class="fas fa-save"></i> رجسٹر کریں</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ڈیٹا بیس ٹیب -->
+        <div class="tab-content" id="database-tab">
+            <h2><i class="fas fa-database"></i> تمام رجسٹرڈ گاڑیاں</h2>
+            <div class="vehicle-list" id="vehicleList">
+                <!-- ڈیٹا بیس سے گاڑیاں یہاں لوڈ ہوں گی -->
+            </div>
+        </div>
+        
+        <!-- سرچ ٹیب -->
+        <div class="tab-content" id="search-tab">
+            <h2><i class="fas fa-search"></i> گاڑی تلاش کریں</h2>
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="لائسنس پلیٹ نمبر، مالک کا نام، یا فون نمبر">
+                    <button onclick="searchVehicle()"><i class="fas fa-search"></i> تلاش</button>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <!-- سرچ نتائج یہاں دکھائیں گے -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 لائسنس پلیٹ ریکگنیشن سسٹم | تمام حقوق محفوظ ہیں</p>
+            <p><i class="fas fa-envelope"></i> رابطہ: info@example.com | <i class="fas fa-phone"></i> ہیلپ لائن: +92 XXX XXXXXXX</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+    // ڈیٹا بیس فنکشنز - localStorage استعمال کرتے ہوئے
+    function getDatabase() {
+        return JSON.parse(localStorage.getItem('licensePlateDB')) || [];
+    }
+    
+    function saveDatabase(data) {
+        localStorage.setItem('licensePlateDB', JSON.stringify(data));
+    }
+    
+    function addVehicleToDatabase(vehicle) {
+        const db = getDatabase();
+        // چیک کریں کہ یہ پلیٹ نمبر پہلے سے موجود نہ ہو
+        const exists = db.find(v => v.plateNumber === vehicle.plateNumber);
+        if (exists) {
+            showNotification('یہ لائسنس پلیٹ پہلے سے موجود ہے', 'error');
+            return false;
+        }
+        
+        vehicle.id = Date.now(); // منفرد ID
+        vehicle.registrationDate = new Date().toLocaleDateString('ur-PK');
+        db.push(vehicle);
+        saveDatabase(db);
+        showNotification('گاڑی کامیابی سے رجسٹر ہو گئی', 'success');
+        loadVehicles(); // ڈیٹا بیس کو دوبارہ لوڈ کریں
+        return true;
+    }
+    
+    function findVehicleByPlate(plateNumber) {
+        const db = getDatabase();
+        return db.find(vehicle => vehicle.plateNumber === plateNumber);
+    }
+    
+    function searchInDatabase(query) {
+        const db = getDatabase();
+        query = query.toLowerCase();
+        return db.filter(vehicle => 
+            vehicle.plateNumber.toLowerCase().includes(query) ||
+            vehicle.ownerName.toLowerCase().includes(query) ||
+            vehicle.phoneNumber.includes(query)
+        );
+    }
+    
+    function deleteVehicle(id) {
+        const db = getDatabase();
+        const newDb = db.filter(vehicle => vehicle.id !== id);
+        saveDatabase(newDb);
+        showNotification('گاڑی کامیابی سے حذف ہو گئی', 'success');
+        loadVehicles(); // ڈیٹا بیس کو دوبارہ لوڈ کریں
+    }
+    
+    // UI فنکشنز
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+    
+    function loadVehicles() {
+        const db = getDatabase();
+        const vehicleList = document.getElementById('vehicleList');
+        
+        if (db.length === 0) {
+            vehicleList.innerHTML = '<p>ابھی تک کوئی گاڑی رجسٹرڈ نہیں ہے۔</p>';
+            return;
+        }
+        
+        vehicleList.innerHTML = db.map(vehicle => `
+            <div class="vehicle-card">
+                <h3>${vehicle.plateNumber}</h3>
+                <p><strong>مالک:</strong> ${vehicle.ownerName}</p>
+                <p><strong>فون:</strong> ${vehicle.phoneNumber}</p>
+                <p><strong>پتہ:</strong> ${vehicle.address}</p>
+                <p><strong>رجسٹریشن تاریخ:</strong> ${vehicle.registrationDate}</p>
+                <div class="actions">
+                    <button class="btn btn-danger" onclick="deleteVehicle(${vehicle.id})"><i class="fas fa-trash"></i> حذف کریں</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function searchVehicle() {
+        const query = document.getElementById('searchInput').value;
+        if (!query) {
+            showNotification('براہ کرم تلاش کے لیے کچھ لکھیں', 'error');
+            return;
+        }
+        
+        const results = searchInDatabase(query);
+        const resultsContainer = document.getElementById('searchResults');
+        
+        if (results.length === 0) {
+            resultsContainer.innerHTML = '<p>کوئی نتائج نہیں ملے۔</p>';
+            return;
+        }
+        
+        resultsContainer.innerHTML = results.map(vehicle => `
+            <div class="vehicle-card">
+                <h3>${vehicle.plateNumber}</h3>
+                <p><strong>مالک:</strong> ${vehicle.ownerName}</p>
+                <p><strong>فون:</strong> ${vehicle.phoneNumber}</p>
+                <p><strong>پتہ:</strong> ${vehicle.address}</p>
+                <p><strong>رجسٹریشن تاریخ:</strong> ${vehicle.registrationDate}</p>
+            </div>
+        `).join('');
+    }
+    
+    // OCR اور امیج پروسیسنگ (ڈیمو)
+    function processImage(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                document.getElementById('resultImage').src = e.target.result;
+                
+                // ڈیمو OCR - حقیقی پروجیکٹ میں آپ سرور سائیڈ OCR استعمال کریں گے
+                const demoPlate = "LEA-" + Math.floor(100 + Math.random() * 900);
+                checkPlateNumber(demoPlate);
+            }
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+    
+    function checkPlateNumber(plateNumber) {
+        const vehicle = findVehicleByPlate(plateNumber);
+        const resultSection = document.getElementById('resultSection');
+        const registrationForm = document.getElementById('registrationForm');
+        
+        document.getElementById('plateNumber').textContent = plateNumber;
+        
+        if (vehicle) {
+            document.getElementById('plateStatus').textContent = 'رجسٹرڈ';
+            document.getElementById('plateStatus').className = 'status registered';
+            registrationForm.style.display = 'none';
+            showNotification('گاڑی رجسٹرڈ ہے - اجازت دی گئی', 'success');
+        } else {
+            document.getElementById('plateStatus').textContent = 'غیر رجسٹرڈ';
+            document.getElementById('plateStatus').className = 'status unregistered';
+            registrationForm.style.display = 'block';
+            // فارم میں پلیٹ نمبر سیٹ کریں
+            document.getElementById('registrationForm').dataset.plateNumber = plateNumber;
+        }
+        
+        resultSection.style.display = 'block';
+    }
+    
+    function registerVehicle() {
+        const plateNumber = document.getElementById('registrationForm').dataset.plateNumber;
+        const ownerName = document.getElementById('ownerName').value;
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        const address = document.getElementById('vehicleAddress').value;
+        
+        if (!ownerName || !phoneNumber || !address) {
+            showNotification('براہ کرم تمام معلومات درج کریں', 'error');
+            return;
+        }
+        
+        const newVehicle = {
+            plateNumber,
+            ownerName,
+            phoneNumber,
+            address
+        };
+        
+        if (addVehicleToDatabase(newVehicle)) {
+            // فارم صاف کریں
+            document.getElementById('ownerName').value = '';
+            document.getElementById('phoneNumber').value = '';
+            document.getElementById('vehicleAddress').value = '';
+            document.getElementById('registrationForm').style.display = 'none';
+        }
+    }
+    
+    // ایونٹ لسٹنرز
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            document.getElementById('fileName').textContent = `منتخب فائل: ${file.name}`;
+            processImage(file);
+        }
+    });
+    
+    document.querySelectorAll('.tab-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // تمام ٹیب بٹنز سے active کلاس ہٹائیں
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // تمام ٹیب مواد چھپائیں
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // منتخب ٹیب کو فعال کریں
+            this.classList.add('active');
+            const tabId = this.getAttribute('data-tab') + '-tab';
+            document.getElementById(tabId).classList.add('active');
+            
+            // اگر ڈیٹا بیس ٹیب ہے تو گاڑیاں لوڈ کریں
+            if (this.getAttribute('data-tab') === 'database') {
+                loadVehicles();
+            }
+        });
+    });
+    
+    // صفحہ لوڈ ہونے پر ڈیٹا بیس چیک کریں
+    window.addEventListener('load', function() {
+        loadVehicles();
+    });
+    </script>
+</body>
+</html>
